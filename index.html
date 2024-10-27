@@ -1,0 +1,594 @@
+<html>
+
+<head>
+    <base href="">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generador de Contenido Instagram Premium</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .gradient-custom {
+            background: linear-gradient(135deg, #ff6b6b, #ff9f43, #ff78c4, #b666d2);
+            background-size: 300% 300%;
+            animation: gradientBG 15s ease infinite;
+        }
+
+        @keyframes gradientBG {
+            0% {
+                background-position: 0% 50%
+            }
+
+            50% {
+                background-position: 100% 50%
+            }
+
+            100% {
+                background-position: 0% 50%
+            }
+        }
+
+        .card {
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        .copy-btn {
+            transition: all 0.3s ease;
+        }
+
+        .copy-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .content-box {
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 20px;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .content-box:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .quote-grid,
+        .description-grid,
+        .comments-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .quote-item,
+        .description-item,
+        .comment-item {
+            background: rgba(255, 255, 255, 0.8);
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+
+<body class="gradient-custom min-vh-100 py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-10">
+                <div class="card p-4">
+                    <h1 class="text-center mb-4">✨ Generador de Contenido Instagram Premium ✨</h1>
+
+                    <div class="content-box">
+                        <h3>📱 Publicación Completa</h3>
+                        <div id="full-content" class="p-3 bg-light rounded">
+                            <div id="full-comment" class="mb-3"></div>
+                            <div id="full-description" class="mb-3"></div>
+                            <div id="full-quotes" class="mb-3"></div>
+                            <div id="full-hashtags"></div>
+                        </div>
+                        <div class="d-flex gap-2">
+                            <button class="btn btn-outline-primary copy-btn" onclick="copyFullContent()">
+                                <i class="fas fa-copy"></i> Copiar Todo
+                            </button>
+                            <button class="btn btn-outline-success" onclick="generateAll()">
+                                <i class="fas fa-sync-alt"></i> Nueva Publicación
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="content-box">
+                        <h3>💭 Comentarios</h3>
+                        <div class="comments-grid" id="comments-container">
+                            <!-- Los comentarios se insertarán aquí -->
+                        </div>
+                        <div class="d-flex gap-2">
+                            <button class="btn btn-outline-primary copy-btn"
+                                onclick="copyToClipboard('comments-container')">
+                                <i class="fas fa-copy"></i> Copiar
+                            </button>
+                            <button class="btn btn-outline-success" onclick="generateNewComments()">
+                                <i class="fas fa-sync-alt"></i> Nuevos Comentarios
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="content-box">
+                        <h3>📝 Descripciones</h3>
+                        <div class="description-grid" id="descriptions-container">
+                            <!-- Las descripciones se insertarán aquí -->
+                        </div>
+                        <div class="d-flex gap-2">
+                            <button class="btn btn-outline-primary copy-btn"
+                                onclick="copyToClipboard('descriptions-container')">
+                                <i class="fas fa-copy"></i> Copiar Todas
+                            </button>
+                            <button class="btn btn-outline-success" onclick="generateNewDescriptions()">
+                                <i class="fas fa-sync-alt"></i> Nuevas Descripciones
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="content-box">
+                        <h3>#️⃣ Hashtags</h3>
+                        <p id="hashtags" class="lead"></p>
+                        <div class="d-flex gap-2">
+                            <button class="btn btn-outline-primary copy-btn" onclick="copyToClipboard('hashtags')">
+                                <i class="fas fa-copy"></i> Copiar
+                            </button>
+                            <button class="btn btn-outline-success" onclick="generateNewHashtags()">
+                                <i class="fas fa-sync-alt"></i> Nuevos Hashtags
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="content-box">
+                        <h3>💫 Frases Motivadoras</h3>
+                        <div class="quote-grid" id="quotes-container">
+                            <!-- Las frases se insertarán aquí -->
+                        </div>
+                        <div class="d-flex gap-2">
+                            <button class="btn btn-outline-primary copy-btn"
+                                onclick="copyToClipboard('quotes-container')">
+                                <i class="fas fa-copy"></i> Copiar Todas
+                            </button>
+                            <button class="btn btn-outline-success" onclick="generateNewQuotes()">
+                                <i class="fas fa-sync-alt"></i> Nuevas Frases
+                            </button>
+                        </div>
+                    </div>
+
+                    <button class="btn btn-primary w-100 mt-3" onclick="generateAll()">
+                        Generar Nuevo Contenido 🎲
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const comments = [
+            "Viviendo mi mejor momento 💫",
+            "La reina que siempre soñé ser 👑",
+            "Brillando con luz propia ✨",
+            "Mi versión más auténtica 🦋",
+            "Conquistando metas, rompiendo límites 💪",
+            "Elegancia y poder en cada paso 👠",
+            "La vida es mejor cuando sonríes 😊",
+            "Creando mi propio destino ⭐",
+            "Siempre radiante, siempre única 💎",
+            "Mi actitud define mi altitud 🚀",
+            "Demasiado ocupada brillando para ver las sombras ✨",
+            "La vida es corta, el outfit debe ser inolvidable 👗",
+            "Mi energía es mi poder 💫",
+            "Construyendo mi imperio, un día a la vez 👑",
+            "Ser sexy es un estado mental 🔥",
+            "No soy perfecta, soy única 💅",
+            "Demasiado bendecida para estar estresada ✨",
+            "Mi confianza es mi mejor accesorio 💋",
+            "Haciendo que cada momento cuente 📸",
+            "Reina en formación, siempre en evolución 👸",
+            "Feliz de ser la protagonista de mi historia 💖",
+            "Nada puede detenerme cuando creo en mí misma 💥",
+            "Es un buen día para sonreír y brillar 🌞",
+            "Aquí solo se acepta buena energía 💫",
+            "Creando recuerdos que durarán para siempre 💭",
+            "Mejorando cada día, un paso a la vez 🌱",
+            "La felicidad es mi mejor look 👗💖",
+            "Viviendo al máximo sin miedo a nada 🌊",
+            "Empoderada, elegante y encantadora ✨",
+            "Vibrando en mi mejor frecuencia 🔥",
+            "Mis sueños no tienen límite 🚀",
+            "Caminando con gracia, dejando huella 💃",
+            "Belleza real, sin filtros 🌸",
+            "Aquí para conquistar y ser feliz 💫",
+            "Haciendo de cada día una obra de arte 🎨",
+            "Siendo fuerte, siendo yo 💪",
+            "La confianza es el mejor maquillaje 💄",
+            "Me amo, y eso es suficiente 💖",
+            "Siempre con estilo, siempre única 👠",
+            "Escogiendo la felicidad como estilo de vida 🌈",
+            "No espero, creo mi propia suerte 🍀",
+            "Siendo mi mejor versión todos los días 🌟",
+            "Ser auténtica nunca pasa de moda 💋",
+            "El éxito es mi única opción 💼",
+            "Viviendo libre, viviendo feliz 🕊️",
+            "Resiliencia, poder y elegancia 💫",
+            "Nada brilla más que una mujer segura de sí misma 🔥",
+            "Elegí ser feliz, y así será 💫",
+            "El poder de mi sonrisa es imparable 😄",
+            "Reescribiendo las reglas de mi vida 🖊️",
+            "Transformando sueños en realidades 🌠",
+            "Cada día soy más fuerte y más sabia 💪",
+            "Caminando con gracia y seguridad 💃",
+            "Mi camino, mis reglas 💫",
+            "Dulce, fuerte y con carácter 💖",
+            "Con una actitud imparable 💥",
+            "Soy una obra en progreso 🎨",
+            "Sencillamente imparable 🌟",
+            "Cada día, un paso más cerca de mis sueños 🌈",
+            "Sonríe, porque la vida es hermosa 💖",
+            "Auténtica y sin excusas 🌷",
+            "Amando cada instante de este viaje llamado vida ✈️",
+            "Elevándome cada día un poco más 🚀",
+            "La actitud es todo lo que necesito 🌹",
+            "Nunca subestimes el poder de ser tú misma 💪",
+            "El único camino es hacia arriba 🌄",
+            "Creciendo y brillando a mi manera 🌞",
+            "Ser feliz es mi superpoder ✨",
+            "Construyendo mi propia historia 📖",
+            "Fuerte, feliz y fabulosa 💃",
+            "Soy una fuerza imparable de la naturaleza 🌊",
+            "Rompiendo barreras y creando oportunidades 🔥",
+            "Aquí para dejar huella en el mundo 🌍",
+            "La vida es un viaje, y yo conduzco 🛤️",
+            "Con una actitud positiva y una sonrisa gigante 😄",
+            "Bailando al ritmo de mi propia música 🎶",
+            "En constante evolución, nunca me detengo 🦋",
+            "Soy mi propia musa 🌹"
+        ];
+
+
+        const descriptions = [
+            "✨ Cultivando mi jardín interior mientras florezco en el exterior. Cada día es una nueva oportunidad para brillar más fuerte 💫",
+            "👑 La verdadera belleza viene de la confianza interior. Hoy elijo ser imparable ⚡",
+            "🌟 Construyendo mi imperio con gracia y determinación. La mejor versión de mí está por venir 💪",
+            "💫 Mezclando dulzura con fortaleza, porque las reinas no necesitan elegir 👑",
+            "🦋 Transformando sueños en realidad, un día a la vez. La vida es demasiado corta para no brillar ✨",
+            "💎 Creando momentos inolvidables y memorias eternas. La vida es un regalo y cada día una nueva página 📖",
+            "🌺 Entre el caos y la calma, elijo la paz interior y la belleza exterior. Siempre auténtica, siempre yo 💫",
+            "👑 Reinventándome cada día, porque el límite lo pongo yo. La vida es demasiado corta para no ser extraordinaria ✨",
+            "🦋 Dejando mi huella en cada paso, inspirando a otros a brillar. La confianza es mi superpoder 💪",
+            "💫 Equilibrio perfecto entre dulzura y fuego. Construyendo mi legado con pasión y determinación 🔥",
+            "✨ Viviendo mi mejor vida, creando mi propia magia. Cada día es una nueva oportunidad para ser legendaria 👑",
+            "🌟 Entre sueños y realidad, elijo crear mi propio destino. La vida es lo que hacemos de ella 💫",
+            "💎 Mezclando glamour con autenticidad. Porque la verdadera belleza comienza cuando decides ser tú misma 🦋",
+            "👑 Cada día es una pasarela, y la vida es mi show. Haciendo que cada momento cuente ✨",
+            "🌺 Cultivando éxitos y cosechando bendiciones. Mi mejor versión está siempre por venir 💫",
+            "💫 Elegancia, poder y confianza. No necesito nada más para conquistar el mundo 🌍",
+            "👑 Escribiendo mi historia con valentía, porque solo yo soy la autora de mi destino 📖",
+            "✨ Cada día es una oportunidad para ser mejor, para brillar y para inspirar 💖",
+            "🌸 Cada experiencia me fortalece, cada día me acerca más a mis sueños 🌠",
+            "🦋 La grandeza se construye un paso a la vez. El proceso es mi poder 💪",
+            "💎 Rodeada de buenas vibras y energía positiva. La vida es más bonita cuando eres feliz 💫",
+            "🌟 A veces dulce, a veces feroz, pero siempre auténtica 💖",
+            "✨ Inspirando a otros a ser su mejor versión, mientras construyo la mía 💃",
+            "🌸 Porque ser uno mismo es el mayor acto de valentía 🌺",
+            "👑 Brillando sin pedir permiso, porque la vida es demasiado corta para esperar 💫",
+            "🦋 No solo sueño, también trabajo para hacer realidad mis deseos 💪",
+            "💖 Vivir es una obra de arte y yo soy el artista 🎨",
+            "🌟 Vibro en paz y atraigo abundancia 💸",
+            "💫 Cuando miras al mundo con amor, todo empieza a florecer 🌹",
+            "👑 La confianza en mí misma es el mejor accesorio que puedo llevar 💎",
+            "✨ Me enfoco en mi paz, mi poder y mi progreso 💖",
+            "🌸 La vida es más bella cuando la disfrutas tal como eres 💃",
+            "🌹 Siendo imparable y dejando mi huella 🌍",
+            "💫 Atrayendo solo lo que me hace crecer 🌱",
+            "🌈 Mi felicidad es la clave de mi éxito 💫",
+            "🦋 En constante evolución, reinventándome a cada paso 🌟",
+            "💖 Siempre buscando ser la mejor versión de mí 🌱",
+            "👑 Mi mundo, mis reglas, mi felicidad 💎",
+            "🌺 Rodeada de paz y personas que inspiran 🌸",
+            "✨ Soy arte en movimiento, viviendo mi mejor vida 🎨",
+            "🌞 Porque ser feliz es el mejor maquillaje que puedo llevar 💖",
+            "💃 Transformando la adversidad en fuerza y la tristeza en belleza 🌹",
+            "💫 Creo en mí misma, y eso me hace invencible 🌠",
+            "🌸 La autenticidad es la clave para una vida plena ✨",
+            "🦋 Con la energía de alguien que sabe lo que merece 🌟"
+        ];
+
+
+        const quotes = [
+            "La verdadera belleza brilla desde el interior 💫",
+            "Sé la energía que quieres atraer ⚡",
+            "Tu actitud determina tu dirección 🚀",
+            "La confianza es el mejor accesorio 👑",
+            "Elige brillar todos los días ✨",
+            "La belleza comienza cuando decides ser tú misma 🦋",
+            "El éxito es la mejor venganza 💅",
+            "Construye tu imperio con gracia y determinación 👠",
+            "La vida es corta, hazla extraordinaria 💫",
+            "Sé la razón por la que alguien sonríe hoy 🌟",
+            "Tu única competencia eres tú misma de ayer 💪",
+            "La actitud es un pequeño detalle que marca una gran diferencia ✨",
+            "Vístete con confianza y conquista el mundo 👗",
+            "Tu valor no disminuye por la incapacidad de alguien de verlo 💎",
+            "Sé la versión de ti misma que te haría sentir orgullosa 🦋",
+            "Cada día es una nueva oportunidad para brillar 🌞",
+            "No tienes que ser perfecta para ser increíble 💫",
+            "Lo que das, regresa. Sé amable siempre 💖",
+            "La confianza es poder y tú tienes mucho 🔥",
+            "Haz de cada día una obra maestra 🎨",
+            "Eres suficiente tal y como eres 💪",
+            "La autenticidad es el alma de la belleza 🦋",
+            "Que tus sueños sean más grandes que tus miedos 🌠",
+            "Lo que piensas, atraes. Lo que sientes, creas 💫",
+            "La felicidad no es un destino, es el camino 🌸",
+            "La única validación que necesitas es la tuya ✨",
+            "Nada puede apagar la luz que brilla desde adentro 🌟",
+            "Sé tu propio tipo de hermosa 🌹",
+            "La paz interior es la verdadera riqueza 💖",
+            "Cada paso cuenta, aunque sea pequeño 🌱",
+            "Tu sonrisa es tu mejor arma contra el mundo 🌍",
+            "Hazlo con pasión o no lo hagas 🔥",
+            "La verdadera elegancia comienza en el corazón 💞",
+            "El coraje es el lenguaje de la fuerza 🌟",
+            "Amarte a ti misma es la clave de todo ✨",
+            "Deja que tu alma brille más fuerte que tus miedos 🌈",
+            "Eres la autora de tu historia, hazla increíble 📖",
+            "Todo lo que buscas ya está dentro de ti 💖",
+            "El tiempo es oro, inviértelo en ti 🌸",
+            "La grandeza se construye día a día 🌞",
+            "Sé la magia que quieres ver en el mundo 🌟",
+            "No busques ser perfecta, busca ser real 🦋",
+            "Nunca subestimes el poder de tus pensamientos 💡",
+            "Cada paso en tu camino es un acto de amor propio 💫",
+            "Tu paz es tu poder 💪",
+            "Hazlo con el corazón y brillarás ✨",
+            "La autenticidad es la nueva perfección 💯",
+            "Cree en ti misma, porque tú eres tu mejor aliada 🦋",
+            "La belleza de tu corazón ilumina todo lo que tocas 💖",
+            "La gratitud transforma lo que tenemos en suficiente 🌸",
+            "Haz que cada momento cuente, porque el tiempo vuela ⏳",
+            "Ríe tan fuerte que tus miedos se desvanezcan 😂",
+            "Si puedes soñarlo, puedes lograrlo 🌠",
+            "La grandeza empieza por ser tú misma 💃",
+            "Sé amable contigo misma, estás haciendo lo mejor 💪",
+            "La vida te sonríe cuando decides ser feliz 😊",
+            "Cada día es un nuevo comienzo, hazlo memorable 🌅",
+            "Eres fuerte, eres capaz, eres imparable 💥",
+            "Haz que cada instante cuente, porque no se repetirá 🌟",
+            "La paz interior es el mejor look que puedes llevar 🌿",
+            "La alegría es contagiosa, esparce un poco por donde vas 🌈",
+            "La vida es un viaje, hazlo memorable 🌍",
+            "Sigue tu intuición; ella sabe el camino 🦋",
+            "Eres un ser único, y eso es tu superpoder ✨",
+            "La pasión es el fuego que enciende tu propósito 🔥",
+            "La belleza no está en el rostro, sino en el alma 🌹",
+            "Tu luz ilumina más de lo que imaginas 🌞",
+            "Rodéate de personas que saquen lo mejor de ti 💕",
+            "No tienes que ser perfecta para ser maravillosa 💫",
+            "Lo que piensas, lo atraes. Mantén la positividad 💡",
+            "El valor de una mujer está en su corazón y su mente 💎",
+            "La felicidad comienza cuando dejas de compararte 🍃",
+            "Confía en el proceso, todo llega a su debido tiempo ⏰",
+            "Nunca dejes de creer en tu propia magia 💖"
+        ];
+
+
+        const hashtags = [
+            "#GirlPower", "#ConfidentWoman", "#QueenVibes", "#BossBabe", "#GlowUp",
+            "#SelfLove", "#BeautyQueen", "#InstaGood", "#PhotoOfTheDay", "#Fashion",
+            "#Style", "#Beauty", "#Lifestyle", "#Inspiration", "#Goals",
+            "#Success", "#Motivation", "#Beautiful", "#Glamour", "#Confidence",
+            "#EmpoderamentoFeminino", "#WomanPower", "#FitnessGirl", "#ModelLife", "#InstaFashion",
+            "#HotGirlSummer", "#BaddieSeason", "#GlamourGirl", "#FashionBlogger", "#StyleInspo",
+            "#SelfCare", "#FierceAndFeminine", "#ChasingDreams", "#MindsetMatters", "#PositiveVibes",
+            "#Elegance", "#InnerStrength", "#PowerfulWomen", "#DreamBig", "#AmbitiousWomen",
+            "#ConfidentlyBeautiful", "#GlowGetter", "#Fearless", "#SelfGrowth", "#EmpowerHer",
+            "#WomenInspiringWomen", "#RiseAndShine", "#DreamChaser", "#Empowerment", "#BelieveInYourself",
+            "#Unstoppable", "#ShineBright", "#Fempreneur", "#BeYourOwnKindOfBeautiful", "#BeKindToYourself",
+            "#ConfidentAF", "#BraveAndBold", "#BossWoman", "#BeYourOwnBoss", "#AchieveGreatness",
+            "#GoGetter", "#UnapologeticallyMe", "#EmpoweredWomen", "#FearlessFemales", "#Flawless",
+            "#BoldAndBeautiful", "#LivingMyBestLife", "#WomenSupportingWomen", "#EmpowerYourself", "#ChicStyle",
+            "#ClassyAndSassy", "#BeTrueToYou", "#PositiveEnergy", "#SlayQueen", "#Stylish",
+            "#EleganceInSimplicity", "#SelfWorth", "#Mindfulness", "#SelfLoveJourney", "#SelfMade",
+            "#StayFocused", "#BeYouBravely", "#InspirationalWomen", "#InnerBeauty", "#KeepItReal",
+            "#FollowYourDreams", "#BelieveInYourMagic", "#OwnYourPower", "#GirlBoss", "#HustleAndHeart",
+            "#BeTheChange", "#Dreamer", "#PursueYourPassion", "#AuthenticSelf", "#SlayTheDay",
+            "#LiveWithPurpose", "#ConfidenceIsKey", "#EmbraceYourJourney", "#LoveYourself", "#Mindset",
+            "#BeStrong", "#PowerMoves", "#LifeGoals", "#BoldMoves", "#SelfConfidence",
+            "#LevelUp", "#Unbreakable", "#BeautyAndBrains", "#GlowUpJourney", "#BeYourOwnHero",
+            "#EmpoweredAndUnstoppable", "#LifeStyleGoals", "#LoveYourBody", "#FocusOnYou", "#EmpoweredAF",
+            "#PositiveMindset", "#ShineFromWithin", "#BeautifulSoul", "#FierceMind", "#BossMindset",
+            "#DreamBigWorkHard", "#LadiesFirst", "#ConfidentWomen", "#BeBoldBeBrave", "#RadiatePositivity",
+            "#WomenOfInspiration", "#LiveYourBestLife", "#SelfLoveClub", "#WomenWithVision", "#BeUnstoppable",
+            "#BeTheLight", "#LifeOnYourTerms", "#BreakYourOwnLimits", "#EmpowerToInspire", "#Flourish",
+            "#StrengthInBeauty", "#ChaseHappiness", "#ElevateYourLife", "#RedefineSuccess", "#OwnIt",
+            "#BeTheInspiration", "#BeautifulInsideAndOut", "#BelieveAchieve", "#GoalGetter", "#LoveLife",
+            "#KeepMovingForward", "#GirlWithDreams", "#YourPotentialIsEndless", "#GlowWithConfidence", "#GirlPowerMovement",
+            "#BeBrave", "#PowerWithin", "#SelfMadeWomen", "#FierceFemales", "#PositiveLife",
+            "#EmpoweredToGrow", "#InspireAndBeInspired", "#BeautyInStrength", "#StandOut", "#StriveForGreatness",
+            "#GirlBossMindset", "#StayInspired", "#FlawlessAndFearless", "#WomenOfStrength", "#HeartOfGold",
+            "#BaddieVibes", "#ChaseDreams", "#SetGoals", "#BelieveAndAchieve", "#MakeItHappen",
+            "#RiseUp", "#GoalDigger", "#PursuitOfHappiness", "#AmbitiousMind", "#BeTrue",
+            "#SlayGoals", "#BeInspirational", "#KeepGrowing", "#EmbraceYourPower", "#BreatheAndGrow",
+            "#PositiveMind", "#BeProud", "#LiveAuthentically", "#ConfidentAndClassy", "#FearlesslyAuthentic",
+            "#GlowOnGirl", "#PowerfulSoul", "#ShineLikeAStar", "#LoveTheJourney", "#RiseAndGrind",
+            "#MakeYourOwnWay", "#LiftAndInspire", "#TrueToMyself", "#BeBoldBeYou", "#StayMotivated",
+            "#GirlGang", "#GoalSetter", "#TrueBeauty", "#ChooseHappiness", "#ClassyVibes",
+            "#ShineBrightLikeADiamond", "#InspireToBe", "#AmbitiousAndDriven", "#FeminineAndStrong", "#MindOverMatter",
+            "#EmpowerAndInspire", "#OwnYourTruth", "#ConfidentGirls", "#StayEmpowered", "#PurposeDriven",
+            "#WomenOfSubstance", "#RiseAbove", "#SheBelievedSheCould", "#FaithOverFear", "#BeUnapologeticallyYou",
+            "#FearlesslyUnique", "#DefineYourself", "#StrongerTogether", "#IndependentWoman", "#GoalDriven",
+            "#BelieveInYourLight", "#InspiringWomen", "#FearlesslyFeminine", "#DreamBigDreams", "#SoulOnFire",
+            "#FindYourPath", "#AmbitionAndDrive", "#OwnYourMoment", "#RadiateLove", "#Limitless",
+            "#love", "#instagood", "#photooftheday", "#fashion", "#beautiful",
+            "#happy", "#cute", "#tbt", "#like4like", "#followme",
+            "#picoftheday", "#follow", "#me", "#selfie", "#summer",
+            "#art", "#instadaily", "#friends", "repost", "#nature",
+            "#girl", "#fun", "#style", "smile", "#food",
+            "#instalike", "#likeforlike", "#family", "travel", "#fitness",
+            "#igers", "#tagsforlikes", "follow4follow", "#nofilter", "#life",
+            "#beauty", "#amazing", "#instamood", "#instagram", "#photography",
+            "#vscocam", "#sun", "#photo", "#music", "#beach",
+            "#followforfollow", "#bestoftheday", "#sky", "#ootd", "#sunset",
+            "#dog", "#vsco", "#l4l", "#makeup", "#f4f",
+            "#foodporn", "#hair", "#pretty", "#swag", "#cat",
+            "#model", "#motivation", "#girls", "#baby", "#party",
+            "#cool", "#lol", "#gym", "#design", "#instapic",
+            "#funny", "#healthy", "#night", "#tflers", "#yummy",
+            "#flowers", "#lifestyle", "#hot", "#instafood", "#wedding",
+            "#fit", "#handmade", "#black", "#pink", "#일상",
+            "#blue", "#work", "#workout", "#blackandwhite", "#drawing",
+            "#inspiration", "#home", "#holiday", "#christmas", "#nyc",
+            "#london", "#sea", "#instacool", "#goodmorning", "#iphoneonly"
+        ];
+
+
+        function getRandomElements(array, count) {
+            let result = [];
+            let tempArray = [...array];
+            for (let i = 0; i < count && tempArray.length > 0; i++) {
+                let index = Math.floor(Math.random() * tempArray.length);
+                result.push(tempArray[index]);
+                tempArray.splice(index, 1);
+            }
+            return result;
+        }
+
+        function getRandomHashtags() {
+            return getRandomElements(hashtags, 30).join(" ");
+        }
+
+        function generateAll() {
+            // Generate comments
+            generateNewComments();
+
+            // Rest of the function remains the same...
+            const selectedDescriptions = getRandomElements(descriptions, 6);
+            const descriptionsContainer = document.getElementById('descriptions-container');
+            descriptionsContainer.innerHTML = '';
+            selectedDescriptions.forEach(desc => {
+                const div = document.createElement('div');
+                div.className = 'description-item';
+                div.textContent = desc;
+                descriptionsContainer.appendChild(div);
+            });
+            document.getElementById('full-description').textContent = selectedDescriptions[0];
+
+            // Generar hashtags
+            const selectedHashtags = getRandomHashtags();
+            document.getElementById('hashtags').textContent = selectedHashtags;
+            document.getElementById('full-hashtags').textContent = selectedHashtags;
+
+            // Generar frases
+            const selectedQuotes = getRandomElements(quotes, 6);
+            const quotesContainer = document.getElementById('quotes-container');
+            quotesContainer.innerHTML = '';
+            selectedQuotes.forEach(quote => {
+                const div = document.createElement('div');
+                div.className = 'quote-item';
+                div.textContent = quote;
+                quotesContainer.appendChild(div);
+            });
+            document.getElementById('full-quotes').textContent = selectedQuotes[0];
+        }
+
+        function copyFullContent() {
+            const fullContent = document.getElementById('full-content');
+            const text = Array.from(fullContent.children)
+                .map(child => child.textContent.trim())
+                .filter(text => text.length > 0)
+                .join('\n\n');
+
+            navigator.clipboard.writeText(text).then(() => {
+                const btn = event.currentTarget;
+                const originalText = btn.innerHTML;
+                btn.innerHTML = '<i class="fas fa-check"></i> ¡Copiado!';
+                setTimeout(() => {
+                    btn.innerHTML = originalText;
+                }, 2000);
+            });
+        }
+
+        function copyToClipboard(elementId) {
+            const element = document.getElementById(elementId);
+            let text = '';
+
+            if (elementId === 'descriptions-container' || elementId === 'quotes-container' || elementId === 'comments-container') {
+                const items = element.getElementsByClassName(elementId === 'descriptions-container' ? 'description-item' : elementId === 'quotes-container' ? 'quote-item' : 'comment-item');
+                text = Array.from(items).map(item => item.textContent).join('\n\n');
+            } else {
+                text = element.textContent;
+            }
+
+            navigator.clipboard.writeText(text).then(() => {
+                const btn = event.currentTarget;
+                const originalText = btn.innerHTML;
+                btn.innerHTML = '<i class="fas fa-check"></i> ¡Copiado!';
+                setTimeout(() => {
+                    btn.innerHTML = originalText;
+                }, 2000);
+            });
+        }
+
+        function generateNewComments() {
+            const selectedComments = getRandomElements(comments, 6);
+            const commentsContainer = document.getElementById('comments-container');
+            commentsContainer.innerHTML = '';
+            selectedComments.forEach(comment => {
+                const div = document.createElement('div');
+                div.className = 'comment-item';
+                div.textContent = comment;
+                commentsContainer.appendChild(div);
+            });
+            document.getElementById('full-comment').textContent = selectedComments[0];
+        }
+
+        function generateNewDescriptions() {
+            const selectedDescriptions = getRandomElements(descriptions, 6);
+            const descriptionsContainer = document.getElementById('descriptions-container');
+            descriptionsContainer.innerHTML = '';
+            selectedDescriptions.forEach(desc => {
+                const div = document.createElement('div');
+                div.className = 'description-item';
+                div.textContent = desc;
+                descriptionsContainer.appendChild(div);
+            });
+            document.getElementById('full-description').textContent = selectedDescriptions[0];
+        }
+
+        function generateNewHashtags() {
+            const selectedHashtags = getRandomHashtags();
+            document.getElementById('hashtags').textContent = selectedHashtags;
+            document.getElementById('full-hashtags').textContent = selectedHashtags;
+        }
+
+        function generateNewQuotes() {
+            const selectedQuotes = getRandomElements(quotes, 6);
+            const quotesContainer = document.getElementById('quotes-container');
+            quotesContainer.innerHTML = '';
+            selectedQuotes.forEach(quote => {
+                const div = document.createElement('div');
+                div.className = 'quote-item';
+                div.textContent = quote;
+                quotesContainer.appendChild(div);
+            });
+            document.getElementById('full-quotes').textContent = selectedQuotes[0];
+        }
+
+        // Generar contenido inicial
+        generateAll();
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
